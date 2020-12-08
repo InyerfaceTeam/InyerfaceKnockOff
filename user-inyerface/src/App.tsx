@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { RegisterComp } from './components/RegisterComp';
+import { TimerComp } from './components/TimerComp';
 
 function App() {
+  
+  //temp functions (definitely need to move aaall of this into another component)
+  const [showTimer, setShowTimer] = useState(false);
+  const showTime = () => {
+    if (!showTimer)
+    {
+      setShowTimer(true);
+    }
+  }
+  const stopShowingTime = () => {
+    if (showTimer)
+    {
+      setShowTimer(false);
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={showTime}>Register</button>
+      { showTimer ? <>
+      <TimerComp seconds={Math.round(Math.random()*10)} fontSize = {20} triggeredFunction={stopShowingTime}/>
+      <RegisterComp />
+      </> : <span/> }
+    </>
   );
 }
 
